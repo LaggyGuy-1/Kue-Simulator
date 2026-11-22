@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Comfy Cakes - Cozy Artisanal Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #3E2723;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Latar Belakang Dinding Bakery Hangat */
+        .bakery-wall {
+            background:
+                radial-gradient(circle at 50% 28%, rgba(253, 248, 242, 0.92) 0%, rgba(244, 232, 216, 0.88) 45%, rgba(215, 192, 168, 0.95) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(141, 91, 76, 0.06) 28px, rgba(141, 91, 76, 0.06) 30px),
+                repeating-linear-gradient(90deg, transparent, transparent 58px, rgba(141, 91, 76, 0.05) 58px, rgba(141, 91, 76, 0.05) 60px);
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: inset 0 -16px 32px rgba(62, 39, 35, 0.25);
+        }
+
+        /* Siluet Logo Bakery Klasik di Tengah Dinding */
+        .wall-watermark {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.09;
+            pointer-events: none;
+            width: 230px;
+            height: 230px;
+        }
+
+        /* Lantai Keramik Hangat */
+        .cozy-floor {
+            height: 138px;
+            background-color: #EFE4D6;
+            background-image:
+                linear-gradient(45deg, #D5B89C 25%, transparent 25%),
+                linear-gradient(-45deg, #D5B89C 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #D5B89C 75%),
+                linear-gradient(-45deg, transparent 75%, #D5B89C 75%);
+            background-size: 64px 64px;
+            background-position: 0 0, 0 32px, 32px -32px, -32px 0px;
+            border-top: 6px solid #5C3A21;
+            position: relative;
+            box-shadow: inset 0 14px 26px rgba(62, 39, 35, 0.35);
+        }
+
+        /* Papan Menu Target Pesanan */
+        .order-monitor {
+            background: linear-gradient(180deg, #8D5B4C 0%, #5C3A21 100%);
+            border: 4px solid #D4A373;
+            border-radius: 18px;
+            box-shadow: 0 8px 18px rgba(62, 39, 35, 0.35), inset 0 2px 6px rgba(255, 248, 240, 0.3);
+            padding: 8px;
+            position: relative;
+        }
+
+        .order-screen {
+            background: radial-gradient(circle, #FFFDF9 0%, #F5EBE0 100%);
+            border-radius: 12px;
+            border: 2px solid #B08968;
+            box-shadow: inset 0 3px 10px rgba(92, 58, 33, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Layar Skor LED Retro Hangat */
+        .digital-display {
+            background: linear-gradient(180deg, #3E2723 0%, #2B1B17 100%);
+            border: 4px solid #D4A373;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(62, 39, 35, 0.35), inset 0 2px 8px rgba(0, 0, 0, 0.65);
+            color: #F6AD55;
+            text-shadow: 0 0 8px rgba(246, 173, 85, 0.55);
+        }
+
+        /* Ban Berjalan (Conveyor Belt) */
+        .conveyor-track {
+            background: linear-gradient(180deg, #5C4D44 0%, #3E332D 50%, #2A221E 100%);
+            height: 44px;
+            border-top: 4px solid #D4A373;
+            border-bottom: 4px solid #3E2723;
+            position: relative;
+            box-shadow: 0 6px 14px rgba(62, 39, 35, 0.35);
+        }
+
+        .conveyor-rollers {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 18px;
+            background: #5C3A21;
+            border-bottom: 3px solid #3E2723;
+        }
+
+        .roller-bolt {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #FFF8E7, #D4A373 65%, #8D5B4C 100%);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            transition: transform 0.35s ease;
+        }
+
+        /* Panel Kontrol Stasiun */
+        .station-panel {
+            background: linear-gradient(180deg, #FDF8F2 0%, #EFE5D8 85%, #DFD0BE 100%);
+            border-right: 3px solid #B08968;
+            border-left: 2px solid #FFFDF9;
+            border-bottom: 5px solid #8D5B4C;
+            border-radius: 0 0 14px 14px;
+            box-shadow: 0 6px 12px rgba(62, 39, 35, 0.22);
+        }
+
+        /* Tombol Tactile Bakery */
+        .comfy-btn {
+            background: linear-gradient(180deg, #FFFDF9 0%, #F3E7D8 52%, #E6D3BC 100%);
+            border: 2px solid #8D5B4C;
+            border-radius: 11px;
+            box-shadow: 0 3px 0 #6F4538, 0 5px 7px rgba(62, 39, 35, 0.2), inset 0 2px 2px rgba(255, 255, 255, 0.9);
+            transition: all 0.1s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .comfy-btn:hover {
+            background: linear-gradient(180deg, #FFFDF9 0%, #F7EDE0 52%, #EDD9C4 100%);
+            border-color: #C86D51;
+            transform: translateY(-1px);
+        }
+
+        .comfy-btn:active {
+            transform: translateY(2.5px);
+            box-shadow: 0 1px 0 #6F4538, 0 2px 3px rgba(62, 39, 35, 0.2);
+        }
+
+        /* Panel Tombol Panah Kayu & Kuningan */
+        .arrow-pad {
+            background: linear-gradient(180deg, #8D5B4C 0%, #5C3A21 100%);
+            border: 3px solid #D4A373;
+            border-radius: 22px;
+            box-shadow: 0 10px 20px rgba(62, 39, 35, 0.4), inset 0 2px 4px rgba(255, 248, 240, 0.35);
+            padding: 8px 18px;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .big-arrow-btn {
+            width: 68px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid #3E2723;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+            position: relative;
+        }
+
+        .btn-sage {
+            background: radial-gradient(circle at 35% 25%, #A7C4A9 0%, #7A9E7E 55%, #4F6F52 100%);
+            box-shadow: 0 6px 0 #3A523C, 0 9px 12px rgba(0, 0, 0, 0.35), inset 0 3px 5px rgba(255, 255, 255, 0.65);
+        }
+
+        .btn-sage:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #3A523C, 0 4px 6px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-terracotta {
+            background: radial-gradient(circle at 35% 25%, #E69A82 0%, #C86D51 55%, #964932 100%);
+            box-shadow: 0 6px 0 #6E3321, 0 9px 12px rgba(0, 0, 0, 0.35), inset 0 3px 5px rgba(255, 255, 255, 0.65);
+        }
+
+        .btn-terracotta:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #6E3321, 0 4px 6px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Tong Sampah Kayu & Kuningan */
+        .trash-can {
+            width: 82px;
+            height: 110px;
+            background: repeating-linear-gradient(90deg, #8D5B4C 0px, #75483A 12px, #5C3A21 14px);
+            border-radius: 8px 8px 16px 16px;
+            border: 3px solid #3E2723;
+            box-shadow: 0 10px 20px rgba(62, 39, 35, 0.45), inset 0 0 12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .trash-can::after {
+            content: '';
+            position: absolute;
+            top: 24px;
+            bottom: 24px;
+            left: -3px;
+            right: -3px;
+            border-top: 5px solid #D4A373;
+            border-bottom: 5px solid #D4A373;
+            pointer-events: none;
+        }
+
+        .trash-can:hover { transform: scale(1.04); }
+
+        .trash-can::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -4px;
+            right: -4px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #2B1B17 62%, #B08968 66%, #D4A373 100%);
+            border-radius: 50%;
+            border: 2px solid #3E2723;
+        }
+
+        /* Wadah Piring Kue di Ban Berjalan */
+        #cake-carriage {
+            position: absolute;
+            bottom: 14px;
+            width: 130px;
+            height: 150px;
+            transform: translateX(-50%);
+            transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 25;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        @keyframes nozzlePump {
+            0% { transform: scaleY(1) translateY(0); }
+            40% { transform: scaleY(1.1) translateY(9px); }
+            100% { transform: scaleY(1) translateY(0); }
+        }
+
+        .nozzle-active { animation: nozzlePump 0.35s ease-out; }
+        .nozzle-wrapper { cursor: pointer; transition: transform 0.15s ease; }
+        .nozzle-wrapper:hover { transform: translateY(2px); }
+
+        @keyframes sparkFade {
+            0% { opacity: 1; transform: translateY(0) scale(0.85); }
+            100% { opacity: 0; transform: translateY(35px) scale(1.25); }
+        }
+
+        .effect-particle {
+            position: absolute;
+            animation: sparkFade 0.55s ease-out forwards;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        @media (max-width: 768px) {
+            .nozzle-svg { transform: scale(0.75); transform-origin: top center; }
+            .comfy-btn { border-radius: 8px; }
+            .big-arrow-btn { width: 56px; height: 40px; }
+            .trash-can { width: 64px; height: 88px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bakery-wall">
+        <!-- Siluet Kue Klasik -->
+        <svg class="wall-watermark" viewBox="0 0 200 200" fill="none">
+            <path d="M40 140 C40 165, 160 165, 160 140 L160 110 C160 135, 40 135, 40 110 Z" fill="#5C3A21"/>
+            <path d="M50 110 C50 130, 150 130, 150 110 L150 80 C150 100, 50 100, 50 80 Z" fill="#5C3A21"/>
+            <ellipse cx="100" cy="80" rx="50" ry="18" fill="#5C3A21"/>
+            <path d="M60 175 L140 175" stroke="#5C3A21" stroke-width="6" stroke-linecap="round"/>
+            <path d="M100 158 L100 175" stroke="#5C3A21" stroke-width="8"/>
+        </svg>
+
+        <!-- BARIS ATAS -->
+        <div class="w-full flex items-start justify-between px-2 sm:px-4 pt-1.5 z-20">
+            <!-- Papan Menu Pesanan -->
+            <div class="order-monitor w-28 sm:w-40 md:w-44 shrink-0">
+                <div class="flex items-center justify-center gap-1 text-[10px] sm:text-xs font-bold text-[#FDF8F2] text-center uppercase tracking-wider mb-1">
+                    <span>Pesanan</span>
+                    <span id="level-badge" class="bg-[#D4A373] text-[#3E2723] px-1.5 rounded text-[9px] sm:text-[10px]">Lv.1</span>
+                </div>
+                <div class="order-screen h-28 sm:h-36 md:h-40 w-full" id="target-cake-container"></div>
+                <div id="target-desc" class="text-[9px] sm:text-[11px] font-semibold text-[#F5EBE0] text-center mt-1.5 leading-tight px-1">
+                    Menyiapkan resep...
+                </div>
+            </div>
+
+            <!-- 6 Nozzle Dispenser -->
+            <div class="flex-1 grid grid-cols-6 gap-1 sm:gap-2 px-1 sm:px-4 items-start pt-0">
+                <!-- Nozzle 1 -->
+                <div id="nozzle-0" onclick="moveConveyorTo(0)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 1: Cetakan Loyang">
+                    <svg class="nozzle-svg w-14 sm:w-20 h-28 sm:h-36" viewBox="0 0 100 160">
+                        <defs>
+                            <linearGradient id="brassGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#B08968"/><stop offset="40%" stop-color="#E6CCB2"/><stop offset="100%" stop-color="#7F5539"/>
+                            </linearGradient>
+                            <linearGradient id="copperGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#9C4932"/><stop offset="45%" stop-color="#E29578"/><stop offset="100%" stop-color="#773320"/>
+                            </linearGradient>
+                            <linearGradient id="creamCeramic" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#E6D5C3"/><stop offset="45%" stop-color="#FFFDF9"/><stop offset="100%" stop-color="#D5BFA8"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="42" y="0" width="16" height="25" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="50" cy="30" rx="28" ry="11" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <path d="M25 32 L75 32 L68 58 L32 58 Z" fill="#7A9E7E" stroke="#2D3A2E" stroke-width="2"/>
+                        <ellipse cx="50" cy="65" rx="34" ry="11" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="50" cy="95" rx="40" ry="20" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <circle cx="26" cy="95" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <circle cx="50" cy="101" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <circle cx="74" cy="95" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <path d="M30 113 L70 113 L61 134 L39 134 Z" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <!-- Nozzle 2 -->
+                <div id="nozzle-1" onclick="moveConveyorTo(1)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 2: Mixer Adonan">
+                    <svg class="nozzle-svg w-16 sm:w-24 h-28 sm:h-36" viewBox="0 0 120 160">
+                        <rect x="35" y="0" width="50" height="18" rx="6" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="60" cy="28" rx="36" ry="11" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <path d="M8 45 Q8 82 32 82 Q50 82 50 45 Z" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="29" cy="45" rx="20" ry="6.5" fill="#C86D51"/>
+                        <path d="M70 45 Q70 82 94 82 Q112 82 112 45 Z" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="91" cy="45" rx="20" ry="6.5" fill="#E9C46A"/>
+                        <path d="M36 55 Q36 96 60 96 Q84 96 84 55 Z" fill="#FFFDF9" stroke="#3E2723" stroke-width="2"/>
+                        <ellipse cx="60" cy="55" rx="23" ry="7.5" fill="#4E2A1E"/>
+                        <path d="M60 28 L60 55 M54 42 Q60 62 66 42" stroke="#3E2723" stroke-width="2.5" fill="none"/>
+                        <path d="M36 90 L84 90 L70 122 L50 122 Z" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <!-- Nozzle 3 -->
+                <div id="nozzle-2" onclick="moveConveyorTo(2)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 3: Krim Isian">
+                    <svg class="nozzle-svg w-14 sm:w-20 h-28 sm:h-36" viewBox="0 0 100 160">
+                        <path d="M35 0 Q25 40 42 70" stroke="#C86D51" stroke-width="7" fill="none"/>
+                        <path d="M50 0 Q55 35 50 70" stroke="#D4A373" stroke-width="7" fill="none"/>
+                        <path d="M65 0 Q78 40 58 70" stroke="#7A9E7E" stroke-width="7" fill="none"/>
+                        <circle cx="50" cy="88" r="27" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <circle cx="33" cy="88" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <circle cx="50" cy="95" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <circle cx="67" cy="88" r="3.5" fill="#D4A373" stroke="#3E2723" stroke-width="1"/>
+                        <rect x="40" y="114" width="20" height="22" rx="4" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <!-- Nozzle 4 -->
+                <div id="nozzle-3" onclick="moveConveyorTo(3)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 4: Lapisan Gula">
+                    <svg class="nozzle-svg w-14 sm:w-20 h-28 sm:h-36" viewBox="0 0 100 160">
+                        <rect x="44" y="0" width="12" height="35" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="1.8"/>
+                        <ellipse cx="50" cy="35" rx="34" ry="10" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <path d="M22 40 L78 40 L66 75 L34 75 Z" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="2"/>
+                        <path d="M32 75 L68 75 L58 108 L42 108 Z" fill="url(#creamCeramic)" stroke="#3E2723" stroke-width="2"/>
+                        <path d="M43 108 L57 108 L50 132 Z" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <!-- Nozzle 5 -->
+                <div id="nozzle-4" onclick="moveConveyorTo(4)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 5: Hiasan Kue">
+                    <svg class="nozzle-svg w-16 sm:w-24 h-28 sm:h-36" viewBox="0 0 120 160">
+                        <rect x="54" y="0" width="12" height="45" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="1.8"/>
+                        <rect x="14" y="42" width="28" height="42" rx="8" fill="rgba(255,253,249,0.85)" stroke="#8D5B4C" stroke-width="2"/>
+                        <circle cx="24" cy="68" r="4.5" fill="#4E2A1E"/><circle cx="33" cy="72" r="4.5" fill="#8D5B4C"/>
+                        <rect x="44" y="48" width="32" height="45" rx="8" fill="rgba(255,253,249,0.85)" stroke="#8D5B4C" stroke-width="2"/>
+                        <circle cx="60" cy="72" r="8.5" fill="#E9C46A" stroke="#5C3A21" stroke-width="1.5"/>
+                        <rect x="78" y="42" width="28" height="42" rx="8" fill="rgba(255,253,249,0.85)" stroke="#8D5B4C" stroke-width="2"/>
+                        <circle cx="92" cy="70" r="5.5" fill="#7A9E7E"/>
+                        <path d="M28 84 Q28 115 60 115 Q92 115 92 84" stroke="#B08968" stroke-width="9" fill="none"/>
+                        <rect x="52" y="112" width="16" height="18" rx="4" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="1.8"/>
+                    </svg>
+                </div>
+
+                <!-- Nozzle 6 -->
+                <div id="nozzle-5" onclick="moveConveyorTo(5)" class="nozzle-wrapper flex flex-col items-center" title="Stasiun 6: Finishing">
+                    <svg class="nozzle-svg w-14 sm:w-20 h-28 sm:h-36" viewBox="0 0 100 160">
+                        <path d="M35 0 Q30 22 42 35" stroke="#8D5B4C" stroke-width="6" fill="none"/>
+                        <path d="M65 0 Q70 22 58 35" stroke="#8D5B4C" stroke-width="6" fill="none"/>
+                        <rect x="28" y="35" width="44" height="65" rx="12" fill="url(#copperGrad)" stroke="#3E2723" stroke-width="2"/>
+                        <rect x="28" y="58" width="44" height="18" fill="url(#brassGrad)" stroke="#3E2723" stroke-width="1.5"/>
+                        <rect x="40" y="100" width="20" height="24" fill="#CBD5E0" stroke="#3E2723" stroke-width="2"/>
+                        <circle cx="46" cy="108" r="2.2" fill="#3E2723"/><circle cx="54" cy="108" r="2.2" fill="#3E2723"/>
+                        <circle cx="46" cy="116" r="2.2" fill="#3E2723"/><circle cx="54" cy="116" r="2.2" fill="#3E2723"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Papan Skor -->
+            <div class="digital-display w-28 sm:w-40 md:w-44 p-2 sm:p-3 shrink-0 flex flex-col justify-between">
+                <div class="flex justify-between items-center border-b border-[#5C3A21] pb-1">
+                    <span class="text-[10px] sm:text-xs text-[#D5BFA8]">SKOR</span>
+                    <span id="score-val" class="text-sm sm:text-xl font-bold text-[#F6AD55]">0</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-[#5C3A21] py-1">
+                    <span class="text-[10px] sm:text-xs text-[#D5BFA8]">SELESAI</span>
+                    <span id="completed-val" class="text-xs sm:text-base font-bold text-[#A7C4A9]">0 Kue</span>
+                </div>
+                <div id="status-screen" class="text-[10px] sm:text-xs text-center text-[#FDE68A] pt-1 font-medium truncate">
+                    SIAP MEMANGGANG!
+                </div>
+            </div>
+        </div>
+
+        <!-- AREA TENGAH: BAN BERJALAN & PANEL 6 STASIUN -->
+        <div class="w-full relative z-20 mt-auto">
+            <div class="relative w-full h-16">
+                <div id="cake-carriage" style="left: 14%;"></div>
+            </div>
+
+            <div class="conveyor-track w-full flex items-center justify-between px-4">
+                <div class="w-full grid grid-cols-6 gap-2 px-10 sm:px-20">
+                    <div id="belt-pad-0" onclick="moveConveyorTo(0)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                    <div id="belt-pad-1" onclick="moveConveyorTo(1)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                    <div id="belt-pad-2" onclick="moveConveyorTo(2)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                    <div id="belt-pad-3" onclick="moveConveyorTo(3)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                    <div id="belt-pad-4" onclick="moveConveyorTo(4)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                    <div id="belt-pad-5" onclick="moveConveyorTo(5)" class="h-6 bg-[#FDF8F2]/20 rounded border border-[#D4A373]/40 transition-all cursor-pointer"></div>
+                </div>
+
+                <button onclick="serveCake()" id="serve-btn" title="Kirim Kue ke Pelanggan (Tekan Enter)"
+                    class="absolute right-1 sm:right-3 -top-3.5 bg-gradient-to-b from-[#E9C46A] via-[#D4A373] to-[#B08968] border-2 border-[#3E2723] rounded-xl px-2.5 sm:px-3.5 py-1.5 shadow-lg hover:scale-105 active:scale-95 transition flex flex-col items-center cursor-pointer z-30">
+                    <span class="text-[#3E2723] text-base sm:text-xl leading-none">★</span>
+                    <span class="text-[9px] sm:text-[11px] font-bold text-[#3E2723] uppercase tracking-tight">KIRIM</span>
+                </button>
+            </div>
+
+            <div class="conveyor-rollers w-full px-4" id="rollers-container">
+                <div class="roller-bolt"></div><div class="roller-bolt"></div><div class="roller-bolt"></div>
+                <div class="roller-bolt"></div><div class="roller-bolt"></div><div class="roller-bolt"></div>
+                <div class="roller-bolt"></div><div class="roller-bolt"></div><div class="roller-bolt"></div>
+                <div class="roller-bolt"></div><div class="roller-bolt"></div><div class="roller-bolt"></div>
+            </div>
+
+            <div class="w-full flex items-stretch px-1 sm:px-3">
+                <div class="station-panel w-11 sm:w-14 p-1.5 flex flex-col items-center justify-around shrink-0">
+                    <button onclick="toggleBgm()" id="bgm-btn" title="Musik Latar" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#E6D5C3] border border-[#8D5B4C] flex items-center justify-center text-xs sm:text-sm shadow active:translate-y-0.5">🎵</button>
+                    <button onclick="toggleSound()" id="sound-btn" title="Efek Suara" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#E6D5C3] border border-[#8D5B4C] flex items-center justify-center text-xs sm:text-sm shadow active:translate-y-0.5">🔊</button>
+                    <button onclick="showHelpModal()" title="Panduan" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#D4A373] border border-[#3E2723] font-bold text-[#3E2723] text-xs sm:text-sm shadow active:translate-y-0.5">?</button>
+                </div>
+
+                <div class="flex-1 grid grid-cols-6 gap-1 sm:gap-1.5">
+                    <!-- STASIUN 1 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1 sm:gap-1.5 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">1. Loyang</span>
+                        <button onclick="applyAction(0, 'circle')" class="comfy-btn w-full h-8 sm:h-10" title="Loyang Bulat">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><ellipse cx="20" cy="14" rx="15" ry="9" fill="#CBD5E0" stroke="#3E2723" stroke-width="2.2"/></svg>
+                        </button>
+                        <button onclick="applyAction(0, 'square')" class="comfy-btn w-full h-8 sm:h-10" title="Loyang Kotak">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><polygon points="8,10 24,6 34,14 18,20" fill="#CBD5E0" stroke="#3E2723" stroke-width="2.2"/></svg>
+                        </button>
+                        <button onclick="applyAction(0, 'heart')" class="comfy-btn w-full h-8 sm:h-10" title="Loyang Hati">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M20 23 C10 16 6 10 12 6 C16 4 20 8 20 10 C20 8 24 4 28 6 C34 10 30 16 20 23 Z" fill="#CBD5E0" stroke="#3E2723" stroke-width="2"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- STASIUN 2 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1 sm:gap-1.5 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">2. Adonan</span>
+                        <button onclick="applyAction(1, 'chocolate')" class="comfy-btn w-full h-8 sm:h-10" title="Dark Chocolate">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M8 8 L32 8 L29 22 Q20 26 11 22 Z" fill="#4E2A1E" stroke="#3E2723" stroke-width="2"/></svg>
+                        </button>
+                        <button onclick="applyAction(1, 'berry')" class="comfy-btn w-full h-8 sm:h-10" title="Berry">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M8 8 L32 8 L29 22 Q20 26 11 22 Z" fill="#C86D51" stroke="#3E2723" stroke-width="2"/></svg>
+                        </button>
+                        <button onclick="applyAction(1, 'vanilla')" class="comfy-btn w-full h-8 sm:h-10" title="Vanila">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M8 8 L32 8 L29 22 Q20 26 11 22 Z" fill="#E9C46A" stroke="#3E2723" stroke-width="2"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- STASIUN 3 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1 sm:gap-1.5 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">3. Krim Isi</span>
+                        <button onclick="applyAction(2, 'berry')" class="comfy-btn w-full h-8 sm:h-10" title="Krim Berry">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M7 10 Q20 16 33 10 L33 17 Q28 22 24 17 Q20 22 16 17 Q12 22 7 17 Z" fill="#C86D51" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                        <button onclick="applyAction(2, 'matcha')" class="comfy-btn w-full h-8 sm:h-10" title="Krim Matcha">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M7 10 Q20 16 33 10 L33 17 Q28 22 24 17 Q20 22 16 17 Q12 22 7 17 Z" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                        <button onclick="applyAction(2, 'vanilla')" class="comfy-btn w-full h-8 sm:h-10" title="Krim Vanila">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><path d="M7 10 Q20 16 33 10 L33 17 Q28 22 24 17 Q20 22 16 17 Q12 22 7 17 Z" fill="#FFFDF9" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- STASIUN 4 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1 sm:gap-1.5 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">4. Lapisan</span>
+                        <button onclick="applyAction(3, 'ganache')" class="comfy-btn w-full h-8 sm:h-10" title="Ganache">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><ellipse cx="20" cy="11" rx="13" ry="6" fill="#4E2A1E" stroke="#3E2723" stroke-width="1.8"/><path d="M7 11 L7 18 Q11 22 15 17 Q20 22 25 17 Q29 22 33 18 L33 11" fill="#4E2A1E" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                        <button onclick="applyAction(3, 'caramel')" class="comfy-btn w-full h-8 sm:h-10" title="Karamel">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><ellipse cx="20" cy="11" rx="13" ry="6" fill="#D97757" stroke="#3E2723" stroke-width="1.8"/><path d="M7 11 L7 18 Q11 22 15 17 Q20 22 25 17 Q29 22 33 18 L33 11" fill="#D97757" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                        <button onclick="applyAction(3, 'lemon')" class="comfy-btn w-full h-8 sm:h-10" title="Lemon">
+                            <svg class="w-6 h-5" viewBox="0 0 40 28"><ellipse cx="20" cy="11" rx="13" ry="6" fill="#E9C46A" stroke="#3E2723" stroke-width="1.8"/><path d="M7 11 L7 18 Q11 22 15 17 Q20 22 25 17 Q29 22 33 18 L33 11" fill="#E9C46A" stroke="#3E2723" stroke-width="1.8"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- STASIUN 5 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">5. Hiasan</span>
+                        <div class="grid grid-cols-2 gap-1 sm:gap-1.5 w-full">
+                            <button onclick="applyAction(4, 'chocochips')" class="comfy-btn h-11 sm:h-14" title="Choco Chips">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24"><circle cx="8" cy="9" r="3.8" fill="#4E2A1E" stroke="#3E2723" stroke-width="1.5"/><circle cx="16" cy="9" r="3.8" fill="#8D5B4C" stroke="#3E2723" stroke-width="1.5"/><circle cx="12" cy="16" r="3.8" fill="#D4A373" stroke="#3E2723" stroke-width="1.5"/></svg>
+                            </button>
+                            <button onclick="applyAction(4, 'star')" class="comfy-btn h-11 sm:h-14" title="Bintang">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24"><polygon points="12,3 14.8,9 21,9.8 16.5,14.2 17.6,20.5 12,17.5 6.4,20.5 7.5,14.2 3,9.8 9.2,9" fill="#E9C46A" stroke="#3E2723" stroke-width="1.5"/></svg>
+                            </button>
+                            <button onclick="applyAction(4, 'smiley')" class="comfy-btn h-11 sm:h-14" title="Senyum">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#E9C46A" stroke="#3E2723" stroke-width="1.5"/><circle cx="9" cy="10" r="1.3" fill="#3E2723"/><circle cx="15" cy="10" r="1.3" fill="#3E2723"/><path d="M8 14 Q12 18 16 14" stroke="#3E2723" stroke-width="1.5" fill="none"/></svg>
+                            </button>
+                            <button onclick="applyAction(4, 'mint')" class="comfy-btn h-11 sm:h-14" title="Daun Mint">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="12" cy="17" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="7" cy="12" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="17" cy="12" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STASIUN 6 -->
+                    <div class="station-panel p-1 sm:p-2 flex flex-col gap-1.5 items-center justify-center">
+                        <span class="text-[8px] sm:text-[10px] font-bold text-[#5C3A21] uppercase">6. Finishing</span>
+                        <button onclick="applyAction(5, 'torch')" class="comfy-btn w-full h-11 sm:h-14" title="Panggang Api">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24"><path d="M12 2 C14 7 19 9 18 16 C17 20 14 22 12 22 C8 22 6 19 6 15 C6 11 9 9 10 6 C10 9 12 10 12 2 Z" fill="#D97757" stroke="#5C3A21" stroke-width="1.5"/><path d="M12 11 C13 14 15 15 14 19 C13 21 11 21 10 19 C9 16 11 14 12 11 Z" fill="#FDE68A"/></svg>
+                        </button>
+                        <button onclick="applyAction(5, 'sugar')" class="comfy-btn w-full h-11 sm:h-14" title="Gula Halus">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24"><rect x="6" y="6" width="8" height="12" rx="2" transform="rotate(-35 10 12)" fill="#CBD5E0" stroke="#3E2723" stroke-width="1.5"/><circle cx="16" cy="17" r="1.3" fill="#8D5B4C"/><circle cx="19" cy="19" r="1.3" fill="#8D5B4C"/><circle cx="14" cy="20" r="1.3" fill="#8D5B4C"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LANTAI KERAMIK -->
+    <div class="cozy-floor w-full flex items-center justify-between px-4 sm:px-10 z-30">
+        <button onclick="newOrder()" class="bg-gradient-to-b from-[#FDF8F2] to-[#E6D5C3] border-2 border-[#5C3A21] rounded-2xl px-3 py-2 shadow-md hover:scale-105 active:scale-95 transition flex items-center gap-2 cursor-pointer">
+            <span class="text-lg">🥐</span>
+            <div class="text-left">
+                <div class="text-[10px] sm:text-xs font-bold text-[#3E2723] leading-none">Ganti Pesanan</div>
+                <div class="text-[9px] text-[#8D5B4C]">Resep Baru</div>
+            </div>
+        </button>
+
+        <div class="arrow-pad">
+            <button onclick="moveConveyor(-1)" class="big-arrow-btn btn-sage" title="Geser Ban ke Kiri">
+                <svg class="w-8 h-8" viewBox="0 0 32 32"><path d="M24 13 L14 13 L14 8 L5 16 L14 24 L14 19 L24 19 Z" fill="#FFFDF9" stroke="#2D3A2E" stroke-width="1.5"/></svg>
+            </button>
+            <button onclick="moveConveyor(1)" class="big-arrow-btn btn-terracotta" title="Geser Ban ke Kanan">
+                <svg class="w-8 h-8" viewBox="0 0 32 32"><path d="M8 13 L18 13 L18 8 L27 16 L18 24 L18 19 L8 19 Z" fill="#FFFDF9" stroke="#5C2B1D" stroke-width="1.5"/></svg>
+            </button>
+        </div>
+
+        <div onclick="trashCake()" class="trash-can flex flex-col items-center justify-center" title="Buang Kue ke Tong">
+            <span class="text-[10px] font-bold text-[#3E2723] bg-[#FDF8F2]/90 border border-[#5C3A21] px-2 py-0.5 rounded shadow mt-3 z-10">BUANG</span>
+        </div>
+    </div>
+
+    <!-- MODAL FEEDBACK -->
+    <div id="feedback-modal" class="fixed inset-0 bg-[#2B1B17]/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4">
+        <div class="bg-gradient-to-b from-[#FFFDF9] to-[#F3E7D8] border-4 border-[#8D5B4C] rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
+            <div id="modal-emoji" class="text-5xl mb-2">☕</div>
+            <h2 id="modal-title" class="text-2xl font-bold text-[#3E2723] mb-1">Kue Sempurna!</h2>
+            <p id="modal-text" class="text-sm text-[#5C3A21] mb-5 leading-relaxed">Pesanan sesuai dengan resep!</p>
+            <button onclick="closeModal()" class="comfy-btn w-full py-2.5 text-[#3E2723] font-bold text-base tracking-wide">LANJUTKAN MEMANGGANG</button>
+        </div>
+    </div>
+
+    <!-- MODAL PANDUAN -->
+    <div id="help-modal" class="fixed inset-0 bg-[#2B1B17]/65 backdrop-blur-xs hidden items-center justify-center z-50 p-4">
+        <div class="bg-gradient-to-b from-[#FFFDF9] to-[#F3E7D8] border-4 border-[#8D5B4C] rounded-3xl max-w-md w-full p-5 text-left shadow-2xl">
+            <h2 class="text-xl font-bold text-[#3E2723] mb-2 text-center">🥐 Panduan Dapur Comfy Cakes</h2>
+            <ul class="text-xs sm:text-sm text-[#5C3A21] space-y-2 mb-5 list-disc pl-5">
+                <li>Perhatikan kartu <b>Pesanan</b> di papan kayu kiri atas.</li>
+                <li>Geser piring kue menggunakan tombol <b>Panah Hijau Sage (Kiri)</b> & <b>Panah Terracotta (Kanan)</b>, tombol panah keyboard, atau klik langsung mesin di atas.</li>
+                <li><b>Langkah Membuat Kue:</b>
+                    <br>1. <b>Loyang:</b> Pilih bentuk (Bulat, Kotak, atau Hati).
+                    <br>2. <b>Adonan:</b> Tuang rasa adonan (Dark Chocolate, Berry, atau Vanila).
+                    <br>3. <b>Krim Isi:</b> Tambahkan krim (Berry, Matcha, atau Vanila) jika diminta.
+                    <br>4. <b>Kue 2 Tingkat (Level 3+):</b> Kembali ke Stasiun 2 untuk menumpuk adonan tingkat kedua!
+                    <br>5. <b>Lapisan & Hiasan:</b> Tambahkan glaze, hiasan atas, dan finishing (Panggang Api / Gula Halus).
+                </li>
+                <li>Tekan tombol <b>KIRIM (★)</b> di ujung kanan ban berjalan saat kue siap disajikan.</li>
+            </ul>
+            <button onclick="closeHelpModal()" class="comfy-btn w-full py-2.5 text-[#3E2723] font-bold text-sm">MENGERTI, MULAI SEKARANG</button>
+        </div>
+    </div>
+
+    <script>
+        let soundEnabled = true;
+        let bgmEnabled = false;
+        let bgmInterval = null;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContextClass) return null;
+                try { audioCtx = new AudioContextClass(); } catch (err) { return null; }
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            try {
+                const now = ctx.currentTime;
+                if (type === 'move') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(220, now + 0.11);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.13);
+                    osc.start(now);
+                    osc.stop(now + 0.13);
+                } else if (type === 'dispense') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(360, now);
+                    osc.frequency.exponentialRampToValueAtTime(520, now + 0.15);
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.17);
+                    osc.start(now);
+                    osc.stop(now + 0.17);
+                } else if (type === 'error') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.linearRampToValueAtTime(115, now + 0.2);
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.22);
+                    osc.start(now);
+                    osc.stop(now + 0.22);
+                } else if (type === 'trash') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(210, now);
+                    osc.frequency.exponentialRampToValueAtTime(85, now + 0.25);
+                    gain.gain.setValueAtTime(0.13, now);
+                    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.27);
+                    osc.start(now);
+                    osc.stop(now + 0.27);
+                } else if (type === 'win') {
+                    const notes = [523.25, 659.25, 783.99, 987.77];
+                    notes.forEach((freq, idx) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'sine';
+                        o.connect(g);
+                        g.connect(ctx.destination);
+                        o.frequency.setValueAtTime(freq, now + idx * 0.11);
+                        g.gain.setValueAtTime(0.15, now + idx * 0.11);
+                        g.gain.exponentialRampToValueAtTime(0.002, now + idx * 0.11 + 0.55);
+                        o.start(now + idx * 0.11);
+                        o.stop(now + idx * 0.11 + 0.55);
+                    });
+                }
+            } catch (err) {}
+        }
+
+        function toggleBgm() {
+            bgmEnabled = !bgmEnabled;
+            const btn = document.getElementById('bgm-btn');
+            clearInterval(bgmInterval);
+            if (bgmEnabled) {
+                const ctx = getAudioContext();
+                btn.classList.add('bg-[#D4A373]', 'border-[#3E2723]');
+                let step = 0;
+                const chords = [
+                    [261.63, 329.63, 392.00],
+                    [220.00, 261.63, 329.63],
+                    [174.61, 220.00, 261.63],
+                    [196.00, 246.94, 293.66]
+                ];
+                bgmInterval = setInterval(() => {
+                    if (!bgmEnabled || !soundEnabled) return;
+                    const activeCtx = ctx || getAudioContext();
+                    if (!activeCtx) return;
+                    try {
+                        const now = activeCtx.currentTime;
+                        const chord = chords[step % chords.length];
+                        chord.forEach(freq => {
+                            const o = activeCtx.createOscillator();
+                            const g = activeCtx.createGain();
+                            o.type = 'sine';
+                            o.frequency.setValueAtTime(freq, now);
+                            g.gain.setValueAtTime(0.025, now);
+                            g.gain.exponentialRampToValueAtTime(0.0005, now + 1.4);
+                            o.connect(g);
+                            g.connect(activeCtx.destination);
+                            o.start(now);
+                            o.stop(now + 1.45);
+                        });
+                        step++;
+                    } catch (err) {}
+                }, 1600);
+            } else {
+                btn.classList.remove('bg-[#D4A373]', 'border-[#3E2723]');
+            }
+        }
+
+        const LABELS = {
+            shape: { circle: 'Bulat', square: 'Kotak', heart: 'Hati' },
+            batter: { chocolate: 'Cokelat', berry: 'Berry', vanilla: 'Vanila' },
+            filling: { berry: 'Krim Berry', matcha: 'Krim Matcha', vanilla: 'Krim Vanila' },
+            icing: { ganache: 'Ganache', caramel: 'Karamel', lemon: 'Lemon' },
+            topping: { chocochips: 'Choco Chips', star: 'Bintang', smiley: 'Senyum', mint: 'Daun Mint' },
+            effect: { torch: 'Panggang', sugar: 'Gula Halus' }
+        };
+
+        const COLORS = {
+            batter: {
+                chocolate: { main: '#5C3424', dark: '#3E2217' },
+                berry: { main: '#C86D51', dark: '#9E4E36' },
+                vanilla: { main: '#E9C46A', dark: '#C9A243' }
+            },
+            filling: { berry: '#C86D51', matcha: '#7A9E7E', vanilla: '#FFFDF9' },
+            icing: {
+                ganache: { top: '#4E2A1E', drip: '#361C13' },
+                caramel: { top: '#E08E6D', drip: '#C86D51' },
+                lemon: { top: '#F3D58D', drip: '#E9C46A' }
+            }
+        };
+
+        let currentStation = 0;
+        let score = 0;
+        let completedCakes = 0;
+        let currentLevel = 1;
+        let rollerRotation = 0;
+        let playerCake = createEmptyCake();
+        let targetCake = null;
+
+        function createEmptyCake() {
+            return { shape: null, tiers: [], topping: null, effect: null };
+        }
+
+        function generateTargetCake() {
+            const shapes = ['circle', 'square', 'heart'];
+            const batters = ['chocolate', 'berry', 'vanilla'];
+            const fillings = ['berry', 'matcha', 'vanilla'];
+            const icings = ['ganache', 'caramel', 'lemon'];
+            const toppings = ['chocochips', 'star', 'smiley', 'mint'];
+            const effects = ['torch', 'sugar'];
+            const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+            if (completedCakes < 2) currentLevel = 1;
+            else if (completedCakes < 4) currentLevel = 2;
+            else currentLevel = 3 + Math.floor((completedCakes - 4) / 3);
+
+            document.getElementById('level-badge').innerText = `Lv.${currentLevel}`;
+
+            const numTiers = (currentLevel >= 3 && Math.random() > 0.25) ? 2 : 1;
+            const tiers = [];
+
+            for (let i = 0; i < numTiers; i++) {
+                tiers.push({
+                    batter: pick(batters),
+                    filling: (numTiers > 1 && i === 0) ? pick(fillings) : (currentLevel >= 2 && Math.random() > 0.5 ? pick(fillings) : null),
+                    icing: (i === numTiers - 1 || Math.random() > 0.45) ? pick(icings) : null
+                });
+            }
+
+            return {
+                shape: pick(shapes),
+                tiers: tiers,
+                topping: (currentLevel === 1 && Math.random() > 0.5) ? null : pick(toppings),
+                effect: (currentLevel >= 2 && Math.random() > 0.45) ? pick(effects) : null
+            };
+        }
+
+        function updateTargetDescription() {
+            const el = document.getElementById('target-desc');
+            if (!targetCake) return;
+            let parts = [`${LABELS.shape[targetCake.shape]} (${targetCake.tiers.length} Tkt)`];
+            targetCake.tiers.forEach((t, idx) => {
+                let tierStr = `T${idx + 1}: ${LABELS.batter[t.batter]}`;
+                if (t.filling) tierStr += ` + ${LABELS.filling[t.filling]}`;
+                if (t.icing) tierStr += ` + ${LABELS.icing[t.icing]}`;
+                parts.push(tierStr);
+            });
+            if (targetCake.topping) parts.push(`Hias: ${LABELS.topping[targetCake.topping]}`);
+            if (targetCake.effect) parts.push(`Efek: ${LABELS.effect[targetCake.effect]}`);
+            el.innerHTML = parts.join(' • ');
+        }
+
+        function renderCakeSVG(cake) {
+            if (!cake || !cake.shape) {
+                return `<svg class="w-24 h-12" viewBox="0 0 120 40"><ellipse cx="60" cy="28" rx="48" ry="10" fill="#E6D5C3" stroke="#5C3A21" stroke-width="2"/><ellipse cx="60" cy="26" rx="38" ry="6" fill="#FFFDF9"/></svg>`;
+            }
+            const w = 130, h = 145;
+            let svgContent = `<ellipse cx="65" cy="132" rx="52" ry="10" fill="#E6D5C3" stroke="#5C3A21" stroke-width="2"/>`;
+
+            if (cake.tiers.length === 0) {
+                svgContent += renderPanShape(cake.shape, 118);
+                return `<svg class="w-28 h-32" viewBox="0 0 ${w} ${h}">${svgContent}</svg>`;
+            }
+
+            const tierHeight = 28;
+            let currentY = 124;
+
+            cake.tiers.forEach((tier) => {
+                const topY = currentY - tierHeight;
+                const bColor = COLORS.batter[tier.batter];
+                svgContent += renderTierBody(cake.shape, topY, tierHeight, bColor.main, bColor.dark);
+
+                if (tier.filling) {
+                    svgContent += renderWavyBand(cake.shape, topY + 6, COLORS.filling[tier.filling]);
+                }
+                if (tier.icing) {
+                    const iColor = COLORS.icing[tier.icing];
+                    svgContent += renderIcingLayer(cake.shape, topY, iColor.top, iColor.drip);
+                } else {
+                    svgContent += renderTopSurface(cake.shape, topY, bColor.main);
+                }
+                currentY = topY - 2;
+            });
+
+            const apexY = currentY + 2;
+
+            if (cake.effect === 'torch') {
+                svgContent += `<ellipse cx="65" cy="${apexY}" rx="34" ry="11" fill="rgba(92, 43, 29, 0.35)"/><path d="M45 ${apexY-2} Q48 ${apexY-12} 51 ${apexY-2}" fill="#D97757" opacity="0.9"/><path d="M78 ${apexY-1} Q81 ${apexY-11} 84 ${apexY-1}" fill="#D97757" opacity="0.9"/>`;
+            } else if (cake.effect === 'sugar') {
+                svgContent += `<g fill="#FFFDF9" opacity="0.95"><circle cx="48" cy="${apexY-1}" r="2"/><circle cx="56" cy="${apexY+2}" r="1.8"/><circle cx="65" cy="${apexY-2}" r="2.2"/><circle cx="74" cy="${apexY+1}" r="1.8"/><circle cx="82" cy="${apexY-1}" r="2"/><circle cx="52" cy="${apexY+4}" r="1.5"/><circle cx="70" cy="${apexY+4}" r="1.5"/></g>`;
+            }
+
+            if (cake.topping) {
+                svgContent += renderTopping(cake.topping, apexY);
+            }
+
+            return `<svg class="w-28 h-32 drop-shadow-md" viewBox="0 0 ${w} ${h}">${svgContent}</svg>`;
+        }
+
+        function renderPanShape(shape, y) {
+            if (shape === 'circle') {
+                return `<path d="M25 ${y} L25 ${y+10} A40 12 0 0 0 105 ${y+10} L105 ${y} Z" fill="#A0AEC0" stroke="#3E2723" stroke-width="2"/><ellipse cx="65" cy="${y}" rx="40" ry="12" fill="#E2E8F0" stroke="#3E2723" stroke-width="2"/>`;
+            } else if (shape === 'square') {
+                return `<polygon points="24,${y} 65,${y-10} 106,${y} 106,${y+10} 65,${y+20} 24,${y+10}" fill="#A0AEC0" stroke="#3E2723" stroke-width="2"/><polygon points="24,${y} 65,${y-10} 106,${y} 65,${y+10}" fill="#E2E8F0" stroke="#3E2723" stroke-width="2"/>`;
+            } else {
+                return `<path d="M65 ${y+16} C35 ${y+4} 22 ${y-8} 42 ${y-12} C54 ${y-14} 65 ${y-5} 65 ${y-5} C65 ${y-5} 76 ${y-14} 88 ${y-12} C108 ${y-8} 95 ${y+4} 65 ${y+16} Z" fill="#E2E8F0" stroke="#3E2723" stroke-width="2.2"/>`;
+            }
+        }
+
+        function renderTierBody(shape, topY, height, color, darkColor) {
+            const botY = topY + height;
+            if (shape === 'circle') {
+                return `<path d="M27 ${topY} L27 ${botY} A38 11 0 0 0 103 ${botY} L103 ${topY} Z" fill="${color}" stroke="#3E2723" stroke-width="2"/>`;
+            } else if (shape === 'square') {
+                return `<polygon points="26,${topY} 65,${topY+10} 65,${botY+10} 26,${botY}" fill="${color}" stroke="#3E2723" stroke-width="2"/><polygon points="65,${topY+10} 104,${topY} 104,${botY} 65,${botY+10}" fill="${darkColor}" stroke="#3E2723" stroke-width="2"/>`;
+            } else {
+                return `<path d="M28 ${topY} L28 ${botY} Q65 ${botY+16} 102 ${botY} L102 ${topY} Z" fill="${color}" stroke="#3E2723" stroke-width="2"/>`;
+            }
+        }
+
+        function renderTopSurface(shape, topY, color) {
+            if (shape === 'circle') {
+                return `<ellipse cx="65" cy="${topY}" rx="38" ry="11" fill="${color}" stroke="#3E2723" stroke-width="1.8"/>`;
+            } else if (shape === 'square') {
+                return `<polygon points="26,${topY} 65,${topY-9} 104,${topY} 65,${topY+10}" fill="${color}" stroke="#3E2723" stroke-width="1.8"/>`;
+            } else {
+                return `<path d="M65 ${topY+12} C36 ${topY+2} 24 ${topY-8} 43 ${topY-12} C54 ${topY-14} 65 ${topY-6} 65 ${topY-6} C65 ${topY-6} 76 ${topY-14} 87 ${topY-12} C106 ${topY-8} 94 ${topY+2} 65 ${topY+12} Z" fill="${color}" stroke="#3E2723" stroke-width="1.8"/>`;
+            }
+        }
+
+        function renderWavyBand(shape, y, color) {
+            return `<path d="M27 ${y} Q37 ${y+7} 46 ${y+2} Q55 ${y+8} 65 ${y+3} Q75 ${y+8} 84 ${y+2} Q93 ${y+7} 103 ${y} L103 ${y+6} Q93 ${y+13} 84 ${y+8} Q75 ${y+14} 65 ${y+9} Q55 ${y+14} 46 ${y+8} Q37 ${y+13} 27 ${y+6} Z" fill="${color}" stroke="#3E2723" stroke-width="1.2"/>`;
+        }
+
+        function renderIcingLayer(shape, topY, topColor, dripColor) {
+            let surf = renderTopSurface(shape, topY, topColor);
+            let drips = `<path d="M27 ${topY} L27 ${topY+9} Q34 ${topY+15} 40 ${topY+8} Q48 ${topY+16} 56 ${topY+9} Q65 ${topY+17} 74 ${topY+9} Q82 ${topY+16} 90 ${topY+8} Q96 ${topY+15} 103 ${topY+9} L103 ${topY}" fill="${dripColor}" stroke="#3E2723" stroke-width="1.5"/>`;
+            return drips + surf;
+        }
+
+        function renderTopping(type, y) {
+            if (type === 'smiley') {
+                return `<g transform="translate(65, ${y - 2})"><ellipse cx="0" cy="0" rx="11" ry="7" fill="#E9C46A" stroke="#3E2723" stroke-width="1.5"/><circle cx="-3.5" cy="-1.5" r="1.2" fill="#3E2723"/><circle cx="3.5" cy="-1.5" r="1.2" fill="#3E2723"/><path d="M-4 1.5 Q0 4.5 4 1.5" stroke="#3E2723" stroke-width="1.3" fill="none"/></g>`;
+            } else if (type === 'star') {
+                return `<polygon points="65,${y-11} 68,${y-4} 75,${y-3} 70,${y+2} 71,${y+9} 65,${y+5} 59,${y+9} 60,${y+2} 55,${y-3} 62,${y-4}" fill="#E9C46A" stroke="#3E2723" stroke-width="1.4"/>`;
+            } else if (type === 'mint') {
+                return `<g transform="translate(65, ${y - 2})"><circle cx="0" cy="-4" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="0" cy="4" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="-4.5" cy="0" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/><circle cx="4.5" cy="0" r="3.5" fill="#7A9E7E" stroke="#3E2723" stroke-width="1.2"/></g>`;
+            } else {
+                return `<g transform="translate(65, ${y - 1})"><circle cx="-9" cy="-1" r="3.2" fill="#4E2A1E" stroke="#3E2723" stroke-width="1"/><circle cx="0" cy="-3" r="3.2" fill="#8D5B4C" stroke="#3E2723" stroke-width="1"/><circle cx="9" cy="-1" r="3.2" fill="#4E2A1E" stroke="#3E2723" stroke-width="1"/><circle cx="-4" cy="3" r="3.2" fill="#D4A373" stroke="#3E2723" stroke-width="1"/><circle cx="5" cy="3" r="3.2" fill="#4E2A1E" stroke="#3E2723" stroke-width="1"/></g>`;
+            }
+        }
+
+        function updateView() {
+            document.getElementById('cake-carriage').innerHTML = renderCakeSVG(playerCake);
+            const activePad = document.getElementById(`belt-pad-${currentStation}`);
+            if (activePad) {
+                const rect = activePad.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                document.getElementById('cake-carriage').style.left = `${centerX}px`;
+            }
+            for (let i = 0; i < 6; i++) {
+                const pad = document.getElementById(`belt-pad-${i}`);
+                if (i === currentStation) {
+                    pad.classList.add('bg-[#E9C46A]/65', 'border-[#FFFDF9]', 'scale-105');
+                    pad.classList.remove('bg-[#FDF8F2]/20');
+                } else {
+                    pad.classList.remove('bg-[#E9C46A]/65', 'border-[#FFFDF9]', 'scale-105');
+                    pad.classList.add('bg-[#FDF8F2]/20');
+                }
+            }
+        }
+
+        function moveConveyor(dir) {
+            const next = currentStation + dir;
+            if (next < 0 || next > 5) {
+                playSound('error');
+                setStatus('UJUNG BAN BERJALAN!', 'text-[#E08E6D]');
+                return;
+            }
+            moveConveyorTo(next);
+        }
+
+        function moveConveyorTo(stationIdx) {
+            if (stationIdx === currentStation) return;
+            const dir = stationIdx > currentStation ? 1 : -1;
+            currentStation = stationIdx;
+            playSound('move');
+            rollerRotation += dir * 45;
+            document.querySelectorAll('.roller-bolt').forEach(b => {
+                b.style.transform = `rotate(${rollerRotation}deg)`;
+            });
+            updateView();
+        }
+
+        function applyAction(stationIdx, value) {
+            if (currentStation !== stationIdx) {
+                currentStation = stationIdx;
+                updateView();
+            }
+
+            const nozzle = document.getElementById(`nozzle-${stationIdx}`);
+            if (nozzle) {
+                nozzle.classList.remove('nozzle-active');
+                void nozzle.offsetWidth;
+                nozzle.classList.add('nozzle-active');
+            }
+
+            if (stationIdx === 0) {
+                if (playerCake.tiers.length > 0) {
+                    playSound('error');
+                    setStatus('SUDAH ADA ADONAN!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.shape = value;
+                setStatus(`LOYANG: ${LABELS.shape[value].toUpperCase()}`, 'text-[#FDE68A]');
+            } else if (stationIdx === 1) {
+                if (!playerCake.shape) {
+                    playSound('error');
+                    setStatus('PILIH LOYANG DULU!', 'text-[#E08E6D]');
+                    return;
+                }
+                if (playerCake.tiers.length >= 2) {
+                    playSound('error');
+                    setStatus('MAKSIMAL 2 TINGKAT!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.tiers.push({ batter: value, filling: null, icing: null });
+                setStatus(`ADONAN ${LABELS.batter[value].toUpperCase()} (T${playerCake.tiers.length})`, 'text-[#FDE68A]');
+            } else if (stationIdx === 2) {
+                if (playerCake.tiers.length === 0) {
+                    playSound('error');
+                    setStatus('TUANG ADONAN DULU!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.tiers[playerCake.tiers.length - 1].filling = value;
+                setStatus(`ISI: ${LABELS.filling[value].toUpperCase()}`, 'text-[#FDE68A]');
+            } else if (stationIdx === 3) {
+                if (playerCake.tiers.length === 0) {
+                    playSound('error');
+                    setStatus('TUANG ADONAN DULU!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.tiers[playerCake.tiers.length - 1].icing = value;
+                setStatus(`LAPISAN: ${LABELS.icing[value].toUpperCase()}`, 'text-[#FDE68A]');
+            } else if (stationIdx === 4) {
+                if (playerCake.tiers.length === 0) {
+                    playSound('error');
+                    setStatus('BUAT KUE DULU!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.topping = value;
+                setStatus(`HIASAN: ${LABELS.topping[value].toUpperCase()}`, 'text-[#FDE68A]');
+            } else if (stationIdx === 5) {
+                if (playerCake.tiers.length === 0) {
+                    playSound('error');
+                    setStatus('BUAT KUE DULU!', 'text-[#E08E6D]');
+                    return;
+                }
+                playerCake.effect = value;
+                spawnEffectParticles(value);
+                setStatus(`FINISHING: ${LABELS.effect[value].toUpperCase()}`, 'text-[#FDE68A]');
+            }
+
+            playSound('dispense');
+            updateView();
+        }
+
+        function spawnEffectParticles(type) {
+            const carriage = document.getElementById('cake-carriage');
+            const emoji = type === 'torch' ? '🔥' : '✨';
+            for (let i = 0; i < 6; i++) {
+                const p = document.createElement('div');
+                p.className = 'effect-particle text-lg';
+                p.innerText = emoji;
+                p.style.left = `${30 + Math.random() * 60}px`;
+                p.style.top = `${10 + Math.random() * 30}px`;
+                carriage.appendChild(p);
+                setTimeout(() => p.remove(), 600);
+            }
+        }
+
+        function trashCake() {
+            playSound('trash');
+            playerCake = createEmptyCake();
+            currentStation = 0;
+            setStatus('KUE DIBUANG KE TONG!', 'text-[#E08E6D]');
+            updateView();
+        }
+
+        function serveCake() {
+            if (!playerCake.shape || playerCake.tiers.length === 0) {
+                playSound('error');
+                setStatus('KUE MASIH KOSONG!', 'text-[#E08E6D]');
+                return;
+            }
+
+            const isShapeMatch = playerCake.shape === targetCake.shape;
+            const isTiersCountMatch = playerCake.tiers.length === targetCake.tiers.length;
+            const isToppingMatch = playerCake.topping === targetCake.topping;
+            const isEffectMatch = playerCake.effect === targetCake.effect;
+
+            let isTiersDetailMatch = isTiersCountMatch;
+            if (isTiersCountMatch) {
+                for (let i = 0; i < targetCake.tiers.length; i++) {
+                    const pT = playerCake.tiers[i];
+                    const tT = targetCake.tiers[i];
+                    if (pT.batter !== tT.batter || pT.filling !== tT.filling || pT.icing !== tT.icing) {
+                        isTiersDetailMatch = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isShapeMatch && isTiersDetailMatch && isToppingMatch && isEffectMatch) {
+                playSound('win');
+                const earned = 100 + (targetCake.tiers.length * 50) + (currentLevel * 20);
+                score += earned;
+                completedCakes++;
+                document.getElementById('score-val').innerText = score;
+                document.getElementById('completed-val').innerText = `${completedCakes} Kue`;
+                showFeedbackModal('☕', 'Kue Sempurna!', `Pesanan selesai dengan hasil hangat & presisi! Kamu mendapatkan +${earned} poin.`);
+                newOrder(false);
+            } else {
+                playSound('error');
+                let hint = 'Periksa kembali detail resep pada papan menu Pesanan di kiri atas.';
+                if (!isShapeMatch) hint = `Bentuk loyang seharusnya ${LABELS.shape[targetCake.shape]}.`;
+                else if (!isTiersCountMatch) hint = `Jumlah tingkat kue seharusnya ${targetCake.tiers.length} tingkat.`;
+                else if (!isTiersDetailMatch) hint = 'Rasa adonan, krim isian, atau lapisan gula pada tingkat kue belum sesuai resep.';
+                else if (!isToppingMatch) hint = `Hiasan puncak seharusnya: ${targetCake.topping ? LABELS.topping[targetCake.topping] : 'Tanpa Hiasan'}.`;
+                else if (!isEffectMatch) hint = `Finishing seharusnya: ${targetCake.effect ? LABELS.effect[targetCake.effect] : 'Tanpa Finishing'}.`;
+                showFeedbackModal('🥐', 'Hampir Cocok!', hint);
+            }
+        }
+
+        function newOrder(playSfx = true) {
+            if (playSfx) playSound('move');
+            targetCake = generateTargetCake();
+            document.getElementById('target-cake-container').innerHTML = renderCakeSVG(targetCake);
+            updateTargetDescription();
+            playerCake = createEmptyCake();
+            currentStation = 0;
+            setStatus('PESANAN BARU SIAP!', 'text-[#A7C4A9]');
+            updateView();
+        }
+
+        function setStatus(text, colorClass) {
+            const el = document.getElementById('status-screen');
+            el.className = `text-[10px] sm:text-xs text-center pt-1 font-bold truncate ${colorClass}`;
+            el.innerText = text;
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('sound-btn').innerText = soundEnabled ? '🔊' : '🔇';
+        }
+
+        function showFeedbackModal(emoji, title, text) {
+            document.getElementById('modal-emoji').innerText = emoji;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            const m = document.getElementById('feedback-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeModal() {
+            const m = document.getElementById('feedback-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        function showHelpModal() {
+            const m = document.getElementById('help-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+
+        function closeHelpModal() {
+            const m = document.getElementById('help-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); moveConveyor(-1); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); moveConveyor(1); }
+            else if (e.key === 'Enter') { e.preventDefault(); serveCake(); }
+        });
+
+        window.addEventListener('resize', updateView);
+
+        // Inisialisasi langsung saat DOM siap
+        function initGame() {
+            newOrder(false);
+            setTimeout(updateView, 50);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGame);
+        } else {
+            initGame();
+        }
+    </script>
+</body>
+</html>
